@@ -1,9 +1,11 @@
 package io.keepcoding.madridshops;
 
 import android.app.Application;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
-public class MadridShopsApp extends Application {
+public class MadridShopsApp extends MultiDexApplication {
 
     private final String APP_NAME = MadridShopsApp.class.getCanonicalName();
 
