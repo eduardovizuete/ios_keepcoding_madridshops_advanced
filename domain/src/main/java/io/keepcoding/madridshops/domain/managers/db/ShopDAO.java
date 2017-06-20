@@ -2,9 +2,12 @@ package io.keepcoding.madridshops.domain.managers.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.keepcoding.madridshops.domain.model.Shop;
@@ -27,13 +30,61 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
     }
 
     @Override
-    public Shop query(long id) {
-        return null;
+    public @Nullable List<Shop> query(String where, String[] whereArgs, String orderBy) {
+        Cursor c = dbReadConnection.query(TABLE_SHOP, // table name
+                ALL_COLUMNS,    // columns
+                where,          // where
+                whereArgs,      // where args
+                orderBy,        // order by
+                null,           // group by
+                null);          // having
+
+        if (c == null || c.getCount() == 0) {
+            return null;
+        }
+
+        List<Shop> shopList = new ArrayList<>();
+
+        while (c.moveToNext()) {
+            long id = c.getLong(c.getColumnIndex(KEY_SHOP_ID));
+            String name = c.getString(c.getColumnIndex(KEY_SHOP_NAME));
+            String address = c.getString(c.getColumnIndex(KEY_SHOP_ADDRESS));
+            String description = c.getString(c.getColumnIndex(KEY_SHOP_DESCRIPTION));
+            String imageUrl = c.getString(c.getColumnIndex(KEY_SHOP_IMAGE_URL));
+            String logoImageUrl = c.getString(c.getColumnIndex(KEY_SHOP_LOGO_IMAGE_URL));
+            String url = c.getString(c.getColumnIndex(KEY_SHOP_URL));
+            float latitude = c.getFloat(c.getColumnIndex(KEY_SHOP_LATITUDE));
+            float longitude = c.getFloat(c.getColumnIndex(KEY_SHOP_LONGITUDE));
+
+            Shop shop = Shop.of(id, name).
+                    setAddress(address).
+                    setDescription(description).
+                    setImageUrl(imageUrl).
+                    setLogoUrl(logoImageUrl).
+                    setLatitude(latitude).
+                    setLongitude(longitude).
+                    setUrl(url);
+            shopList.add(shop);
+        }
+
+        return shopList;
     }
 
     @Override
-    public List<Shop> query() {
-        return null;
+    public @Nullable Shop query(long id) {
+        String idAsString = String.format("%d", id);
+        List<Shop> shops = query(KEY_SHOP_ID + " = ?", new String[]{ idAsString }, KEY_SHOP_ID);
+
+        if (shops == null || shops.size() == 0) {
+            return null;
+        }
+
+        return shops.get(0);
+    }
+
+    @Override
+    public @Nullable List<Shop> query() {
+        return query(null, null, KEY_SHOP_ID);
     }
 
     @Override
@@ -45,7 +96,7 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
         dbWriteConnection.beginTransaction();
         long id = DBHelper.INVALID_ID;
         try {
-            id =dbWriteConnection.insert(DBConstants.TABLE_SHOP, null, getContenValues(element));
+            id =dbWriteConnection.insert(TABLE_SHOP, null, getContentValues(element));
             element.setId(id);
 
             dbWriteConnection.setTransactionSuccessful();
@@ -56,7 +107,7 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
         return id;
     }
 
-    private ContentValues getContenValues(Shop shop) {
+    private ContentValues getContentValues(Shop shop) {
         final ContentValues contentValues = new ContentValues();
 
         if (shop == null) {
@@ -82,16 +133,37 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
 
     @Override
     public long delete(long id) {
-        return 0;
+        return delete(KEY_SHOP_ID + " = ?", "" + id);
     }
 
     @Override
     public long delete(Shop element) {
-        return 0;
+        return delete(element.getId());
     }
 
     @Override
-    public long deleteAll() {
-        return 0;
+    public void deleteAll() {
+        delete(null, null);
+    }
+
+    @Override
+    public long delete(String where, String... whereClause) {
+        int deletedRegs = 0;
+        dbWriteConnection.beginTransaction();
+        try {
+            deletedRegs = dbWriteConnection.delete(TABLE_SHOP, where, whereClause);
+
+            dbWriteConnection.setTransactionSuccessful();
+        } finally {
+            dbWriteConnection.endTransaction();
+        }
+        return deletedRegs;
+    }
+
+    @Override
+    public int numRecords() {
+        List<Shop> shopList = query();
+
+        return shopList == null ? 0 : shopList.size();
     }
 }
