@@ -1,4 +1,4 @@
-package io.keepcoding.domain;
+package io.keepcoding.madridshops.domain;
 
 import org.junit.Test;
 
