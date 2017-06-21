@@ -12,7 +12,8 @@ public class GetAllShopsInteractorFakeImpl implements GetAllShopsInteractor {
         Shops shops = new Shops();
 
         for (int i = 0; i < 10; i++) {
-            Shop shop = Shop.of(i, "My shop " + i);
+            Shop shop = Shop.of(i, "My shop " + i).
+                    setLogoUrl("http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/128/shop-icon.png");
             shops.add(shop);
         }
 

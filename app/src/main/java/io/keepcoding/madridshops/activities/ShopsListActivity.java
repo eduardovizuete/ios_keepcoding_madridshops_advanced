@@ -11,13 +11,18 @@ import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorFakeImp
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
 import io.keepcoding.madridshops.domain.model.Shop;
 import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.fragments.ShopsFragment;
 
 public class ShopsListActivity extends AppCompatActivity {
+
+    ShopsFragment shopsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
+
+        shopsFragment = (ShopsFragment) getSupportFragmentManager().findFragmentById(R.id.activity_shop_list__fragment_shop);
 
         // obtain shops list
 
@@ -27,6 +32,7 @@ public class ShopsListActivity extends AppCompatActivity {
                     @Override
                     public void completion(@NonNull final Shops shops) {
                         System.out.println("Hello hello");
+                        shopsFragment.setShops(shops);
                     }
                 },
                 new InteractorErrorCompletion() {

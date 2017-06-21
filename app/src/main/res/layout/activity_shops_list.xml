@@ -12,6 +12,7 @@
     tools:context="io.keepcoding.madridshops.activities.ShopsListActivity">
 
     <fragment
+        android:id="@+id/activity_shop_list__fragment_shop"
         android:name="io.keepcoding.madridshops.fragments.ShopsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
