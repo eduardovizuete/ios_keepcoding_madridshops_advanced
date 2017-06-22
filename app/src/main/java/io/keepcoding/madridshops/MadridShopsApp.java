@@ -30,7 +30,7 @@ public class MadridShopsApp extends MultiDexApplication {
 
         Log.d(APP_NAME, "App starting");
 
-        Picasso.with(getApplicationContext()).setLoggingEnabled(true);
+        //Picasso.with(getApplicationContext()).setLoggingEnabled(true);
         Picasso.with(getApplicationContext()).setIndicatorsEnabled(true);
     }
 

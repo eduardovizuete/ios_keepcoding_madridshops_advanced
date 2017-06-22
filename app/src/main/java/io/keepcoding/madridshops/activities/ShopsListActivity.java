@@ -15,6 +15,8 @@ import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
 import io.keepcoding.madridshops.domain.model.Shop;
 import io.keepcoding.madridshops.domain.model.Shops;
 import io.keepcoding.madridshops.fragments.ShopsFragment;
+import io.keepcoding.madridshops.navigator.Navigator;
+import io.keepcoding.madridshops.views.OnElementClick;
 
 public class ShopsListActivity extends AppCompatActivity {
 
@@ -37,6 +39,13 @@ public class ShopsListActivity extends AppCompatActivity {
                     public void completion(@NonNull final Shops shops) {
                         System.out.println("Hello hello");
                         shopsFragment.setShops(shops);
+                        shopsFragment.setOnElementClickListener(new OnElementClick<Shop>() {
+                            @Override
+                            public void clickedOn(@NonNull Shop element, int position) {
+                                // TODO: finish
+                                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, element, position);
+                            }
+                        });
                     }
                 },
                 new InteractorErrorCompletion() {

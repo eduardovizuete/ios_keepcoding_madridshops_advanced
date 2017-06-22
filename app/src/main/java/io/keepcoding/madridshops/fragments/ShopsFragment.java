@@ -20,6 +20,8 @@ import io.keepcoding.madridshops.views.OnElementClick;
 
 public class ShopsFragment extends Fragment {
 
+    private OnElementClick<Shop> listener;
+
     private RecyclerView shopsRecyclerView;
     private ShopsAdapter adapter;
     private Shops shops;
@@ -51,8 +53,15 @@ public class ShopsFragment extends Fragment {
             @Override
             public void clickedOn(@NonNull Shop shop, int position) {
                 Log.d("Click", shop.getName());
+                if (listener != null) {
+                    ShopsFragment.this.listener.clickedOn(shop, position);
+                }
             }
         });
+    }
+
+    public void setOnElementClickListener(OnElementClick<Shop> listener) {
+        this.listener = listener;
     }
 
 }
