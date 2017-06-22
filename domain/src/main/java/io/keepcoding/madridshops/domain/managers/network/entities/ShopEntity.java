@@ -8,9 +8,11 @@ public class ShopEntity {
     @SerializedName("name") private String name;
     @SerializedName("address") private String address;
     @SerializedName("description_es") private String description_es;
+    @SerializedName("description_en") private String description_en;
     @SerializedName("gps_lat") private String gps_lat;
-    @SerializedName("gps_long") private String gps_long;
+    @SerializedName("gps_lon") private String gps_lon;
     @SerializedName("img") private String img;
+    @SerializedName("logo_img") private String logo_img;
     @SerializedName("url") private String url;
     @SerializedName("telephone") private String telephone;
 
@@ -30,16 +32,24 @@ public class ShopEntity {
         return description_es;
     }
 
+    public String getDescription_en() {
+        return description_en;
+    }
+
     public String getGps_lat() {
         return gps_lat;
     }
 
-    public String getGps_long() {
-        return gps_long;
+    public String getGps_lon() {
+        return gps_lon;
     }
 
     public String getImg() {
         return img;
+    }
+
+    public String getLogo_img() {
+        return logo_img;
     }
 
     public String getUrl() {

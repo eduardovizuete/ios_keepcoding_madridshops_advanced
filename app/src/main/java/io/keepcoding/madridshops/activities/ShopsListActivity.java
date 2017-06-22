@@ -8,7 +8,10 @@ import io.keepcoding.madridshops.R;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorCompletion;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorFakeImpl;
+import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
+import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerImpl;
+import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
 import io.keepcoding.madridshops.domain.model.Shop;
 import io.keepcoding.madridshops.domain.model.Shops;
 import io.keepcoding.madridshops.fragments.ShopsFragment;
@@ -26,7 +29,8 @@ public class ShopsListActivity extends AppCompatActivity {
 
         // obtain shops list
 
-        GetAllShopsInteractor getAllShopsInteractor = new GetAllShopsInteractorFakeImpl();
+        NetworkManager manager = new GetAllShopsManagerImpl(this);
+        GetAllShopsInteractor getAllShopsInteractor = new GetAllShopsInteractorImpl(manager);
         getAllShopsInteractor.execute(
                 new GetAllShopsInteractorCompletion() {
                     @Override
