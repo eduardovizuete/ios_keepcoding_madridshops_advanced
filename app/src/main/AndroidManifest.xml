@@ -22,9 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.ShopsListActivity">
+        <activity
+            android:name=".activities.ShopsListActivity"
+            android:parentActivityName=".activities.MainActivity">
         </activity>
-        <activity android:name=".activities.ShopDetailActivity">
+        <activity
+            android:name=".activities.ShopDetailActivity"
+            android:parentActivityName=".activities.ShopsListActivity">
         </activity>
     </application>
 
