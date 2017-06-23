@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import io.keepcoding.madridshops.MadridShopsApp;
 import io.keepcoding.madridshops.R;
 import io.keepcoding.madridshops.navigator.Navigator;
+import io.keepcoding.madridshops.util.MainThread;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         shopsButton.setText(s);
+                    }
+                });
+
+                // method 2
+
+                MainThread.run(new Runnable() {
+                    @Override
+                    public void run() {
+
                     }
                 });
             }
