@@ -6,11 +6,11 @@ import android.preference.PreferenceManager;
 
 import java.lang.ref.WeakReference;
 
-public class GetIfAllShopsAreChachedInteractorImpl implements GetIfAllShopsAreChachedInteractor {
+public class GetIfAllShopsAreCachedInteractorImpl implements GetIfAllShopsAreCachedInteractor {
 
     private WeakReference<Context> context;
 
-    public GetIfAllShopsAreChachedInteractorImpl(Context context) {
+    public GetIfAllShopsAreCachedInteractorImpl(Context context) {
         this.context = new WeakReference<Context>(context);
     }
     @Override

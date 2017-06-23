@@ -1,5 +1,5 @@
 package io.keepcoding.madridshops.domain.interactors;
 
-public interface GetIfAllShopsAreChachedInteractor {
+public interface GetIfAllShopsAreCachedInteractor {
     void executed(Runnable onAllShopsAreCached, Runnable onAllShopsAreNotCached);
 }

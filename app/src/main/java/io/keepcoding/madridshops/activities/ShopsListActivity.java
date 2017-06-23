@@ -9,14 +9,18 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.keepcoding.madridshops.R;
+import io.keepcoding.madridshops.domain.interactors.GetAllShopsFromCacheInteractor;
+import io.keepcoding.madridshops.domain.interactors.GetAllShopsFromCacheInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorCompletion;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorImpl;
-import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreChachedInteractor;
-import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreChachedInteractorImpl;
+import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreCachedInteractor;
+import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
 import io.keepcoding.madridshops.domain.interactors.SetAllShopsCachedInteractor;
 import io.keepcoding.madridshops.domain.interactors.SetAllShopsCachedInteractorImpl;
+import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManager;
+import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManagerDAOImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerImpl;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
 import io.keepcoding.madridshops.domain.model.Shop;
@@ -38,22 +42,32 @@ public class ShopsListActivity extends AppCompatActivity {
 
         shopsFragment = (ShopsFragment) getSupportFragmentManager().findFragmentById(R.id.activity_shop_list__fragment_shop);
 
-        GetIfAllShopsAreChachedInteractor getAllShopsChachedInteractor = new GetIfAllShopsAreChachedInteractorImpl(getBaseContext());
-        getAllShopsChachedInteractor.executed(new Runnable() {
+        GetIfAllShopsAreCachedInteractor getIfAllShopsAreCaachedInteractor = new GetIfAllShopsAreCachedInteractorImpl(getBaseContext());
+        getIfAllShopsAreCaachedInteractor.executed(new Runnable() {
             @Override
             public void run() {
                 // all cached already, no need to download things, just read from DB
-                SetAllShopsCachedInteractor setAllShopsCachedInteractor = new SetAllShopsCachedInteractorImpl(getBaseContext());
-                setAllShopsCachedInteractor.execute(false);
+                readDataFromCache();
             }
         }, new Runnable() {
             @Override
             public void run() {
-                // nothing chached yet
+                // nothing cached yet
                 obtainShopsList();
             }
         });
 
+    }
+
+    private void readDataFromCache() {
+        GetAllShopsFromCacheManager getAllShopsFromCacheManager = new GetAllShopsFromCacheManagerDAOImpl(this);
+        GetAllShopsFromCacheInteractor getAllShopsFromCacheInteractor = new GetAllShopsFromCacheInteractorImpl(getAllShopsFromCacheManager);
+        getAllShopsFromCacheInteractor.execute(new GetAllShopsInteractorCompletion() {
+            @Override
+            public void completion(@NonNull Shops shops) {
+                configShopsFragment(shops);
+            }
+        });
     }
 
     private void obtainShopsList() {
@@ -70,17 +84,10 @@ public class ShopsListActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.INVISIBLE);
 
                         // TODO: persist in cached all shops
+                        configShopsFragment(shops);
+
                         SetAllShopsCachedInteractor setAllShopsCachedInteractor = new SetAllShopsCachedInteractorImpl(getBaseContext());
                         setAllShopsCachedInteractor.execute(true);
-
-                        shopsFragment.setShops(shops);
-                        shopsFragment.setOnElementClickListener(new OnElementClick<Shop>() {
-                            @Override
-                            public void clickedOn(@NonNull Shop element, int position) {
-                                // TODO: finish
-                                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, element, position);
-                            }
-                        });
                     }
                 },
                 new InteractorErrorCompletion() {
@@ -91,5 +98,16 @@ public class ShopsListActivity extends AppCompatActivity {
                 }
 
         );
+    }
+
+    private void configShopsFragment(final Shops shops) {
+        shopsFragment.setShops(shops);
+        shopsFragment.setOnElementClickListener(new OnElementClick<Shop>() {
+            @Override
+            public void clickedOn(@NonNull Shop element, int position) {
+                // TODO: finish
+                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, element, position);
+            }
+        });
     }
 }
