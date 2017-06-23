@@ -3,7 +3,11 @@ package io.keepcoding.madridshops.activities;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.keepcoding.madridshops.R;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorCompletion;
@@ -20,16 +24,23 @@ import io.keepcoding.madridshops.views.OnElementClick;
 
 public class ShopsListActivity extends AppCompatActivity {
 
+    @BindView(R.id.activity_shop_list__progress_bar) ProgressBar progressBar;
     ShopsFragment shopsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shops_list);
+        ButterKnife.bind(this);
 
         shopsFragment = (ShopsFragment) getSupportFragmentManager().findFragmentById(R.id.activity_shop_list__fragment_shop);
 
-        // obtain shops list
+        obtainShopsList();
+
+    }
+
+    private void obtainShopsList() {
+        progressBar.setVisibility(View.VISIBLE);
 
         NetworkManager manager = new GetAllShopsManagerImpl(this);
         GetAllShopsInteractor getAllShopsInteractor = new GetAllShopsInteractorImpl(manager);
@@ -38,6 +49,9 @@ public class ShopsListActivity extends AppCompatActivity {
                     @Override
                     public void completion(@NonNull final Shops shops) {
                         System.out.println("Hello hello");
+
+                        progressBar.setVisibility(View.INVISIBLE);
+
                         shopsFragment.setShops(shops);
                         shopsFragment.setOnElementClickListener(new OnElementClick<Shop>() {
                             @Override
@@ -56,6 +70,5 @@ public class ShopsListActivity extends AppCompatActivity {
                 }
 
         );
-
     }
 }
