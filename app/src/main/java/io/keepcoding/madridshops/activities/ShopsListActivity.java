@@ -17,10 +17,14 @@ import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreCachedInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetIfAllShopsAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
-import io.keepcoding.madridshops.domain.interactors.SetAllShopsCachedInteractor;
-import io.keepcoding.madridshops.domain.interactors.SetAllShopsCachedInteractorImpl;
+import io.keepcoding.madridshops.domain.interactors.SaveAllShopsIntoCacheInteractor;
+import io.keepcoding.madridshops.domain.interactors.SaveAllShopsIntoCacheInteractorImpl;
+import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteractor;
+import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManagerDAOImpl;
+import io.keepcoding.madridshops.domain.managers.cache.SaveAllShopsIntoCacheManager;
+import io.keepcoding.madridshops.domain.managers.cache.SaveAllShopsIntoCacheManagerDAOImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerImpl;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
 import io.keepcoding.madridshops.domain.model.Shop;
@@ -42,8 +46,8 @@ public class ShopsListActivity extends AppCompatActivity {
 
         shopsFragment = (ShopsFragment) getSupportFragmentManager().findFragmentById(R.id.activity_shop_list__fragment_shop);
 
-        GetIfAllShopsAreCachedInteractor getIfAllShopsAreCaachedInteractor = new GetIfAllShopsAreCachedInteractorImpl(getBaseContext());
-        getIfAllShopsAreCaachedInteractor.executed(new Runnable() {
+        GetIfAllShopsAreCachedInteractor getIfAllShopsAreCachedInteractor = new GetIfAllShopsAreCachedInteractorImpl(getBaseContext());
+        getIfAllShopsAreCachedInteractor.executed(new Runnable() {
             @Override
             public void run() {
                 // all cached already, no need to download things, just read from DB
@@ -81,13 +85,18 @@ public class ShopsListActivity extends AppCompatActivity {
                     public void completion(@NonNull final Shops shops) {
                         System.out.println("Hello hello");
 
-                        progressBar.setVisibility(View.INVISIBLE);
+                        SaveAllShopsIntoCacheManager saveManager = new SaveAllShopsIntoCacheManagerDAOImpl(getBaseContext());
+                        SaveAllShopsIntoCacheInteractor saveInteractor = new SaveAllShopsIntoCacheInteractorImpl(saveManager);
+                        saveInteractor.execute(shops, new Runnable() {
+                            @Override
+                            public void run() {
+                                SetAllShopsAreCachedInteractor setAllShopsCachedInteractor = new SetAllShopsAreCachedInteractorImpl(getBaseContext());
+                                setAllShopsCachedInteractor.execute(true);
+                            }
+                        });
 
-                        // TODO: persist in cached all shops
                         configShopsFragment(shops);
-
-                        SetAllShopsCachedInteractor setAllShopsCachedInteractor = new SetAllShopsCachedInteractorImpl(getBaseContext());
-                        setAllShopsCachedInteractor.execute(true);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 },
                 new InteractorErrorCompletion() {

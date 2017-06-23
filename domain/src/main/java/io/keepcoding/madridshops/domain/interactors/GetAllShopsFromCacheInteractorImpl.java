@@ -19,7 +19,7 @@ public class GetAllShopsFromCacheInteractorImpl implements GetAllShopsFromCacheI
         cacheManager.execute(new GetAllShopsFromCacheManagerCompletion() {
             @Override
             public void completion(@NonNull Shops shops) {
-                completion.completion(null);
+                completion.completion(shops);
             }
         });
     }

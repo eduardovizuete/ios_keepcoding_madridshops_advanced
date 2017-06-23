@@ -16,7 +16,7 @@ public class GetIfAllShopsAreCachedInteractorImpl implements GetIfAllShopsAreCac
     @Override
     public void executed(Runnable onAllShopsAreCached, Runnable onAllShopsAreNotCached) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.get());
-        boolean shopsSaved = preferences.getBoolean(SetAllShopsCachedInteractor.SHOPS_SAVED, false);
+        boolean shopsSaved = preferences.getBoolean(SetAllShopsAreCachedInteractor.SHOPS_SAVED, false);
 
         if (shopsSaved) {
             onAllShopsAreCached.run();

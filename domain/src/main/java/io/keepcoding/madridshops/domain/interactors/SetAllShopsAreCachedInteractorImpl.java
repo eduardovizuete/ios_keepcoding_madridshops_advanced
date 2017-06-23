@@ -6,11 +6,11 @@ import android.preference.PreferenceManager;
 
 import java.lang.ref.WeakReference;
 
-public class SetAllShopsCachedInteractorImpl implements SetAllShopsCachedInteractor {
+public class SetAllShopsAreCachedInteractorImpl implements SetAllShopsAreCachedInteractor {
 
     private WeakReference<Context> context;
 
-    public SetAllShopsCachedInteractorImpl(Context context) {
+    public SetAllShopsAreCachedInteractorImpl(Context context) {
         this.context = new WeakReference<Context>(context);
     }
 
@@ -19,7 +19,7 @@ public class SetAllShopsCachedInteractorImpl implements SetAllShopsCachedInterac
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.get());
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putBoolean(SetAllShopsCachedInteractorImpl.SHOPS_SAVED, shopsSaved);
+        editor.putBoolean(SetAllShopsAreCachedInteractorImpl.SHOPS_SAVED, shopsSaved);
 
         editor.commit();
     }
