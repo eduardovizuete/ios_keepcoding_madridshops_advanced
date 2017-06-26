@@ -17,8 +17,15 @@ import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.keepcoding.madridshops.MadridShopsApp;
 import io.keepcoding.madridshops.R;
+import io.keepcoding.madridshops.domain.interactors.ClearCacheInteractor;
+import io.keepcoding.madridshops.domain.interactors.ClearCacheInteractorImpl;
+import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteractor;
+import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteractorImpl;
+import io.keepcoding.madridshops.domain.managers.cache.ClearCacheManager;
+import io.keepcoding.madridshops.domain.managers.cache.ClearCacheManagerDAOImpl;
 import io.keepcoding.madridshops.navigator.Navigator;
 import io.keepcoding.madridshops.util.MainThread;
 
@@ -115,4 +122,15 @@ public class MainActivity extends AppCompatActivity {
         return out.toString();
     }
 
+    @OnClick(R.id.activity_main__clear_cache_button) void clearcache() {
+        ClearCacheManager clearCacheManager = new ClearCacheManagerDAOImpl(this);
+        ClearCacheInteractor clearCacheInteractor = new ClearCacheInteractorImpl(clearCacheManager);
+        clearCacheInteractor.execute(new Runnable() {
+            @Override
+            public void run() {
+                SetAllShopsAreCachedInteractor setAllShopsAreCachedInteractor = new SetAllShopsAreCachedInteractorImpl(getBaseContext());
+                setAllShopsAreCachedInteractor.execute(false);
+            }
+        });
+    }
 }
