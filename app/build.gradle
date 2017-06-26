@@ -17,6 +17,28 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+
+        }
+    }
+
+    productFlavors {
+        phone {
+            buildConfigField "String", "BASE_URL", "\"https://production-url-phone\""
+        }
+
+        tablet {
+            buildConfigField "String", "BASE_URL", "\"https://production-url-tablet\""
+        }
+
+        freeToPlay {
+
+        }
+
+        payALoyToPlay {
+
+        }
     }
 }
 
