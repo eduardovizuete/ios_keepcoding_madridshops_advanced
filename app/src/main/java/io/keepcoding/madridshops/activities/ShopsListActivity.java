@@ -207,6 +207,9 @@ public class ShopsListActivity extends AppCompatActivity {
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
+                if (marker.getTag() == null || !(marker.getTag() instanceof Shop)) {
+                    return;
+                }
                 Shop shop = (Shop) marker.getTag();
                 Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, shop, 0);
             }
