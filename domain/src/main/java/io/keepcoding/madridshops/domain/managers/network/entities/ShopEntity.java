@@ -3,7 +3,6 @@ package io.keepcoding.madridshops.domain.managers.network.entities;
 import com.google.gson.annotations.SerializedName;
 
 public class ShopEntity {
-
     @SerializedName("id") private long id;
     @SerializedName("name") private String name;
     @SerializedName("address") private String address;

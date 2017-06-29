@@ -56,6 +56,7 @@ import static io.keepcoding.madridshops.util.map.MapUtil.centerMapInPosition;
 public class ShopListActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_shop_list__progress_bar) ProgressBar progressBar;
+
     ShopsFragment shopsFragment;
     private SupportMapFragment mapFragment;
     public GoogleMap map;
@@ -63,21 +64,23 @@ public class ShopListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shops_list);
+        setContentView(R.layout.activity_shop_list);
         ButterKnife.bind(this);
 
         shopsFragment = (ShopsFragment) getSupportFragmentManager().findFragmentById(R.id.activity_shop_list__fragment_shops);
 
         initializeMap();
+
     }
 
     private void checkCacheData() {
-        GetIfAllShopsAreCachedInteractor getIfAllShopsAreCachedInteractor = new GetIfAllShopsAreCachedInteractorImpl(getBaseContext());
-        getIfAllShopsAreCachedInteractor.executed(new Runnable() {
+        GetIfAllShopsAreCachedInteractor getIfAllShopsAreCachedInteractor = new GetIfAllShopsAreCachedInteractorImpl(this);
+        getIfAllShopsAreCachedInteractor.execute(new Runnable() {
             @Override
             public void run() {
                 // all cached already, no need to download things, just read from DB
                 readDataFromCache();
+
             }
         }, new Runnable() {
             @Override
@@ -109,7 +112,7 @@ public class ShopListActivity extends AppCompatActivity {
         });
     }
 
-    private void addDataToMap(GoogleMap map) {
+    public void addDataToMap(GoogleMap map) {
         if (ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -122,6 +125,7 @@ public class ShopListActivity extends AppCompatActivity {
             return;
         }
 
+
         centerMapInPosition(map, 40.411335, -3.674908);
         map.setBuildingsEnabled(true);
         map.setMapType(MAP_TYPE_NORMAL);
@@ -131,15 +135,17 @@ public class ShopListActivity extends AppCompatActivity {
 
         MarkerOptions retiroMarkerOptions = new MarkerOptions()
                 .position(new LatLng(40.411335, -3.674908))
-                .title("hello World").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                .title("Hello world").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 
         MarkerOptions retiroMarkerOptions2 = new MarkerOptions()
                 .position(new LatLng(40.42, -3.674908))
-                .title("hello World").icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_camera));
+                .title("Hello world 2").icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_camera));
 
         Marker marker = map.addMarker(retiroMarkerOptions);
         map.addMarker(retiroMarkerOptions2);
+
     }
+
 
     private void readDataFromCache() {
         GetAllShopsFromCacheManager getAllShopsFromCacheManager = new GetAllShopsFromCacheManagerDAOImpl(this);
@@ -158,32 +164,29 @@ public class ShopListActivity extends AppCompatActivity {
         NetworkManager manager = new GetAllShopsManagerImpl(this);
         GetAllShopsInteractor getAllShopsInteractor = new GetAllShopsInteractorImpl(manager);
         getAllShopsInteractor.execute(
-                new GetAllShopsInteractorCompletion() {
-                    @Override
-                    public void completion(@NonNull final Shops shops) {
-                        System.out.println("Hello hello");
+            new GetAllShopsInteractorCompletion() {
+                @Override
+                public void completion(Shops shops) {
+                    SaveAllShopsIntoCacheManager saveManager = new SaveAllShopsIntoCacheManagerDAOImpl(getBaseContext());
+                    SaveAllShopsIntoCacheInteractor saveInteractor = new SaveAllShopsIntoCacheInteractorImpl(saveManager);
+                    saveInteractor.execute(shops, new Runnable() {
+                        @Override
+                        public void run() {
+                            SetAllShopsAreCachedInteractor setAllShopsCachedInteractor = new SetAllShopsAreCachedInteractorImpl(getBaseContext());
+                            setAllShopsCachedInteractor.execute(true);
+                        }
+                    });
 
-                        SaveAllShopsIntoCacheManager saveManager = new SaveAllShopsIntoCacheManagerDAOImpl(getBaseContext());
-                        SaveAllShopsIntoCacheInteractor saveInteractor = new SaveAllShopsIntoCacheInteractorImpl(saveManager);
-                        saveInteractor.execute(shops, new Runnable() {
-                            @Override
-                            public void run() {
-                                SetAllShopsAreCachedInteractor setAllShopsCachedInteractor = new SetAllShopsAreCachedInteractorImpl(getBaseContext());
-                                setAllShopsCachedInteractor.execute(true);
-                            }
-                        });
-
-                        configShopsFragment(shops);
-                        progressBar.setVisibility(View.INVISIBLE);
-                    }
-                },
-                new InteractorErrorCompletion() {
-                    @Override
-                    public void onError(@NonNull final String errorDescription) {
-
-                    }
+                    configShopsFragment(shops);
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
-
+            },
+            new InteractorErrorCompletion() {
+                @Override
+                public void onError(String errorDescription) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            }
         );
     }
 

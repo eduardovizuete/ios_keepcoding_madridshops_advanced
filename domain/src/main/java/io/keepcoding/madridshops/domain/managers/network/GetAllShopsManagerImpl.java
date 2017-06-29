@@ -22,15 +22,15 @@ public class GetAllShopsManagerImpl implements NetworkManager {
 
     WeakReference<Context> weakContext;
 
-    public GetAllShopsManagerImpl(Context context){
+    public GetAllShopsManagerImpl(Context context) {
         weakContext = new WeakReference<Context>(context);
     }
 
     @Override
-    public void getShopsFromServer(@NonNull final GetAllShopsManagerCompletion completion,
-                                   @Nullable final ManagerErrorCompletion errorCompletion) {
+    public void getShopsFromServer(@NonNull final GetAllShopsManagerCompletion completion, @Nullable final ManagerErrorCompletion errorCompletion) {
         String url = weakContext.get().getString(R.string.shops_url);
         RequestQueue queue = Volley.newRequestQueue(weakContext.get());
+
         StringRequest request = new StringRequest(
                 url,
                 new Response.Listener<String>() {

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_shop_detail"
     android:layout_width="match_parent"
@@ -21,46 +20,46 @@
 
             <ImageView
                 android:id="@+id/activity_shop_detail__shop_image"
+                tools:src="@drawable/shopplaceholder"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                tools:src="@drawable/shopplaceholder"/>
+                android:layout_height="200dp" />
 
             <TextView
                 android:id="@+id/activity_shop_detail__shop_name"
+                tools:text="El Corte Chino (sin premio)"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:alpha="0.8"
-                android:background="@color/colorPrimaryDark"
                 android:gravity="center_horizontal|bottom"
                 android:textColor="@android:color/white"
                 android:textSize="40sp"
-                tools:text="El Corte Chino (sin premio)"/>
+                android:background="@color/colorPrimaryDark"
+                android:alpha="0.8"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:id="@+id/activity_shop_detail__shop_address"
                 android:layout_below="@id/activity_shop_detail__shop_name"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                tools:text="Address"/>
+                tools:text="Address"
+                />
 
             <TextView
-                android:id="@+id/activity_shop_detail__description"
+                android:id="@+id/activity_shop_detail__shop_description"
                 android:layout_below="@id/activity_shop_detail__shop_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Description"/>
+                tools:text="Description"
+                />
 
             <ImageView
-                android:id="@+id/activity_shop_detail__show_map"
-                android:layout_below="@id/activity_shop_detail__description"
+                android:id="@+id/activity_shop_detail__shop_map"
+                android:layout_below="@id/activity_shop_detail__shop_description"
                 tools:src="@drawable/map_placeholder"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </RelativeLayout>
     </ScrollView>
-
 
 </RelativeLayout>

@@ -4,7 +4,6 @@ import android.content.Context;
 
 import java.lang.ref.WeakReference;
 
-import io.keepcoding.madridshops.domain.interactors.SaveAllShopsIntoCacheInteractor;
 import io.keepcoding.madridshops.domain.managers.db.ShopDAO;
 import io.keepcoding.madridshops.domain.model.Shop;
 import io.keepcoding.madridshops.domain.model.Shops;

@@ -1,14 +1,12 @@
 package io.keepcoding.madridshops.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,12 +16,12 @@ import io.keepcoding.madridshops.util.Constants;
 import io.keepcoding.madridshops.util.StaticMapImage;
 
 public class ShopDetailActivity extends AppCompatActivity {
-
     @BindView(R.id.activity_shop_detail__shop_address) TextView address;
-    @BindView(R.id.activity_shop_detail__description) TextView description;
+    @BindView(R.id.activity_shop_detail__shop_description) TextView description;
     @BindView(R.id.activity_shop_detail__shop_image) ImageView shopImage;
-    @BindView(R.id.activity_shop_detail__show_map) ImageView mapImage;
+    @BindView(R.id.activity_shop_detail__shop_map) ImageView mapImage;
     @BindView(R.id.activity_shop_detail__shop_name) TextView name;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

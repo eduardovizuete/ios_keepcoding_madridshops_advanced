@@ -16,22 +16,21 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class ShopDAOTests {
-
     final static Context appContext = InstrumentationRegistry.getTargetContext();
     public static final int TEST_ID = 888;
     public static final String TEST_NAME = "name";
 
     @Test
-    public void given_Shop_DAO_inserts_Shop() throws Exception {
+    public void given_shop_DAO_inserts_shop() throws Exception {
         ShopDAO sut = new ShopDAO(appContext);
         Shop shop = Shop.of(1, "Shop test").
-                setAddress("address").
-                setLatitude(10).
-                setLongitude(11);
+                        setAddress("address").
+                        setLatitude(10).
+                        setLongitude(11);
 
-        sut.insert(shop);
         long id = sut.insert(shop);
         assertTrue(id > 0);
+
     }
 
     @Test
@@ -59,10 +58,10 @@ public class ShopDAOTests {
     }
 
     @Test
-    public void  given_one_inserted_shop_I_can_delete_that_shop() {
+    public void given_one_inserted_shop_I_can_delete_that_shop() throws Exception {
         ShopDAO sut = new ShopDAO(appContext);
-        
-        sut.deleteAll();       
+
+        sut.deleteAll();
         Shop insertedShop = insertShop(sut, TEST_ID, TEST_NAME, "", 10, 10);
         Shop shop = sut.query(insertedShop.getId());
 
@@ -70,6 +69,7 @@ public class ShopDAOTests {
         assertEquals(insertedShop.getId(), shop.getId());
         assertEquals(TEST_NAME, shop.getName());
     }
+
 
     private Shop insertShop(ShopDAO sut, long id, String name, String address, float latitude, float longitude) {
         Shop shop = Shop.of(id, name).

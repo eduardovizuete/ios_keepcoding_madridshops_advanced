@@ -1,5 +1,7 @@
 package io.keepcoding.madridshops.domain.managers.network.jsonparser;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,24 +13,23 @@ import io.keepcoding.madridshops.domain.managers.network.entities.ShopEntity;
 import io.keepcoding.madridshops.domain.managers.network.entities.ShopsResponseEntity;
 
 public class ShopsJsonParser {
-
-    public List<ShopEntity> parse(String response) {
+    public List<ShopEntity> parse(@NonNull final String response) {
         if (response == null) {
             return null;
         }
 
-        List<ShopEntity> shopsEntities = null;
+        List<ShopEntity> shopEntities = null;
 
         try {
             Gson gson = new GsonBuilder().create();
 
             Reader reader = new StringReader(response);
             ShopsResponseEntity shopsResponseEntity = gson.fromJson(reader, ShopsResponseEntity.class);
-            shopsEntities = shopsResponseEntity.getResult();
+            shopEntities = shopsResponseEntity.getResult();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return shopsEntities;
+        return shopEntities;
     }
 }

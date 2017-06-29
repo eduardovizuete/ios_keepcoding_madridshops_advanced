@@ -14,18 +14,20 @@ import com.squareup.picasso.Picasso;
 import io.keepcoding.madridshops.activities.ShopListActivity;
 import io.keepcoding.madridshops.services.ShopService;
 
+
 public class MadridShopsApp extends MultiDexApplication {
 
-    private final String APP_NAME = MadridShopsApp.class.getCanonicalName();
+    public static final String APP_NAME = MadridShopsApp.class.getCanonicalName();
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         // init app
-        Log.d(APP_NAME, "App starting" + BuildConfig.BASE_URL);
 
-        //Picasso.with(getApplicationContext()).setLoggingEnabled(true);
+        Log.d(APP_NAME, "App starting " + BuildConfig.BASE_URL);
+
+        // Picasso.with(getApplicationContext()).setLoggingEnabled(true);
         Picasso.with(getApplicationContext()).setIndicatorsEnabled(true);
 
         ShopService.startRunningService(this);
@@ -46,6 +48,7 @@ public class MadridShopsApp extends MultiDexApplication {
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         int notificationId = 0;
         notificationManager.notify(notificationId, notification);
+
     }
 
     @Override

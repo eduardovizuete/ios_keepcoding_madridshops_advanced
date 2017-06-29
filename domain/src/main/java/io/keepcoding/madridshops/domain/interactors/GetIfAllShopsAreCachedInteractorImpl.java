@@ -13,8 +13,9 @@ public class GetIfAllShopsAreCachedInteractorImpl implements GetIfAllShopsAreCac
     public GetIfAllShopsAreCachedInteractorImpl(Context context) {
         this.context = new WeakReference<Context>(context);
     }
+
     @Override
-    public void executed(Runnable onAllShopsAreCached, Runnable onAllShopsAreNotCached) {
+    public void execute(Runnable onAllShopsAreCached, Runnable onAllShopsAreNotCached) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.get());
         boolean shopsSaved = preferences.getBoolean(SetAllShopsAreCachedInteractor.SHOPS_SAVED, false);
 
@@ -23,6 +24,5 @@ public class GetIfAllShopsAreCachedInteractorImpl implements GetIfAllShopsAreCac
         } else {
             onAllShopsAreNotCached.run();
         }
-
     }
 }

@@ -24,9 +24,7 @@ public class Shop implements Serializable {
         return shop;
     }
 
-    private Shop() {
-
-    }
+    private Shop() {}
 
     public long getId() {
         return id;

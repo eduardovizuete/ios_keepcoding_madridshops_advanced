@@ -1,8 +1,7 @@
 package io.keepcoding.madridshops.activities;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,6 @@ import java.net.URL;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import io.keepcoding.madridshops.MadridShopsApp;
 import io.keepcoding.madridshops.R;
 import io.keepcoding.madridshops.domain.interactors.ClearCacheInteractor;
 import io.keepcoding.madridshops.domain.interactors.ClearCacheInteractorImpl;
@@ -40,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        //shopsButton = (Button) findViewById(R.id.activity_main__shops_button);
+        // shopsButton = (Button) findViewById(R.id.activity_main__shops_button);
 
         shopsButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Log.d(MainActivity.class.getCanonicalName(),"Hello");
 
                 Navigator.navigateFromMainActivityToShopListActivity(MainActivity.this);
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         activitiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Log.d(MainActivity.class.getCanonicalName(),"Hello activities");
             }
         });
@@ -92,10 +90,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         thread.start();
+
     }
 
     private String testMultithread() {
-        final String web = "https://freegeoip.net/json/";
+        final String web = "http://freegeoip.net/json/";
         String result = null;
         try {
             URL url = new URL(web);
@@ -122,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         return out.toString();
     }
 
-    @OnClick(R.id.activity_main__clear_cache_button) void clearcache() {
+    @OnClick(R.id.activity_main__clear_cache_button) void clearCache() {
         ClearCacheManager clearCacheManager = new ClearCacheManagerDAOImpl(this);
         ClearCacheInteractor clearCacheInteractor = new ClearCacheInteractorImpl(clearCacheManager);
         clearCacheInteractor.execute(new Runnable() {

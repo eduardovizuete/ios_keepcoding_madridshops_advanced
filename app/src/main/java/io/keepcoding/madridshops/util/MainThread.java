@@ -12,5 +12,6 @@ public class MainThread {
 
         Handler uiHandler = new Handler(Looper.getMainLooper());
         uiHandler.post(codeToRunOnMainThread);
-  }
+    }
+
 }

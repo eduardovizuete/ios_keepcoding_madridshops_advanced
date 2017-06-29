@@ -7,7 +7,7 @@ import io.keepcoding.madridshops.domain.model.Shops;
 
 import static org.junit.Assert.*;
 
-public class ShopUnitTests {
+public class ShopsUnitTests {
     @Test
     public void after_creation_shops_size_is_zero() throws Exception {
         Shops sut = new Shops();
@@ -61,4 +61,5 @@ public class ShopUnitTests {
         assertEquals(0, sut.allShops().get(0).getId());
         assertEquals("My shop 0", sut.allShops().get(0).getName());
     }
+
 }

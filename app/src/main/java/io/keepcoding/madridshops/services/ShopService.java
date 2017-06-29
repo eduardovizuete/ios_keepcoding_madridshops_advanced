@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 public class ShopService extends IntentService {
@@ -40,7 +39,7 @@ public class ShopService extends IntentService {
     }
 
     @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
+    protected void onHandleIntent(Intent intent) {
         Log.d("Service", "Hello hello");
     }
 }

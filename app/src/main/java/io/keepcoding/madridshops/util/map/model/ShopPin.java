@@ -8,7 +8,6 @@ import io.keepcoding.madridshops.domain.model.Shops;
 import io.keepcoding.madridshops.util.map.MapPinnable;
 
 public class ShopPin implements MapPinnable<Shop> {
-
     private Shop shop;
 
     public static List<MapPinnable> shopPinsFromShops(Shops shops) {

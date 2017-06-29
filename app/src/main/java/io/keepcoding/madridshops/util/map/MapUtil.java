@@ -11,8 +11,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.List;
 
-import io.keepcoding.madridshops.util.map.model.ShopPin;
-
 public class MapUtil {
     public static void centerMapInPosition(GoogleMap googleMap, double latitude, double longitude) {
         CameraPosition cameraPosition = new CameraPosition.Builder().target(

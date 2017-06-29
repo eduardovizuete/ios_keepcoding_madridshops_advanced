@@ -4,12 +4,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHelper extends SQLiteOpenHelper{
+public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_FILE_NAME = "madridshops.sqlite";
     public static final int DATABASE_VERSION = 1;
     public static final SQLiteDatabase.CursorFactory NO_CURSOR_FACTORY = null;
     public static final long INVALID_ID = -1;
+
 
     // convenience
     public DBHelper(Context context) {
@@ -20,13 +21,15 @@ public class DBHelper extends SQLiteOpenHelper{
         super(context, name, factory, version);
     }
 
+
     @Override
     public void onOpen(SQLiteDatabase db) {
         super.onOpen(db);
-        // si API LEVEL > 16
+
+        // if API LEVEL > 16
         db.setForeignKeyConstraintsEnabled(true);
 
-        //db.execSQL("PRAGMA foreign_keys = ON");
+        // db.execSQL("PRAGMA foreing_keys = ON");
     }
 
     @Override
@@ -55,4 +58,3 @@ public class DBHelper extends SQLiteOpenHelper{
         return i != 0;
     }
 }
-

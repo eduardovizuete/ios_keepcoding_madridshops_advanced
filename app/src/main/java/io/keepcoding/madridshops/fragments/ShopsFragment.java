@@ -4,7 +4,6 @@ package io.keepcoding.madridshops.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,6 +17,7 @@ import io.keepcoding.madridshops.domain.model.Shop;
 import io.keepcoding.madridshops.domain.model.Shops;
 import io.keepcoding.madridshops.views.OnElementClick;
 
+
 public class ShopsFragment extends Fragment {
 
     private OnElementClick<Shop> listener;
@@ -30,14 +30,13 @@ public class ShopsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_shops, container, false);
 
-        shopsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_shop__recycler_view);
+        shopsRecyclerView = (RecyclerView) view.findViewById(R.id.fragment_shops__recycler_view);
         shopsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;

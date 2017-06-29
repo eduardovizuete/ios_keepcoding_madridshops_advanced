@@ -15,7 +15,7 @@ public class ShopEntityIntoShopsMapper {
      * @param shopEntities
      * @return null if shopEntities is null or ShopEntities is empty else a Shops aggregate
      */
-    public static Shops map(List<ShopEntity> shopEntities) {
+    public static Shops map(final List<ShopEntity> shopEntities) {
         Shops shops = new Shops();
 
         for (ShopEntity shopEntity : shopEntities) {
@@ -31,7 +31,7 @@ public class ShopEntityIntoShopsMapper {
 
             shops.add(shop);
         }
-        
+
         return shops;
     }
 
@@ -43,9 +43,8 @@ public class ShopEntityIntoShopsMapper {
         try {
             coordinate = Float.parseFloat(s);
         } catch (Exception e) {
-            Log.d("ERROR CONVERTING", String.format("Can't convert %s" + coordinateComponent));
+            Log.d("ERROR CONVERTING", String.format("Can't convert %s", coordinateComponent));
         }
-
         return coordinate;
     }
 }

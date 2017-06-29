@@ -17,12 +17,13 @@ import static io.keepcoding.madridshops.domain.managers.db.DBConstants.*;
 public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
 
     private static final long EMPTY_SHOP = 0;
+
     private SQLiteDatabase dbReadConnection;
     private SQLiteDatabase dbWriteConnection;
 
     public ShopDAO(DBHelper dbHelper) {
-        dbWriteConnection = dbHelper.getWritableDatabase();
         dbReadConnection = dbHelper.getReadableDatabase();
+        dbWriteConnection = dbHelper.getWritableDatabase();
     }
 
     public ShopDAO(Context context) {
@@ -78,7 +79,6 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
         if (shops == null || shops.size() == 0) {
             return null;
         }
-
         return shops.get(0);
     }
 
@@ -96,7 +96,7 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
         dbWriteConnection.beginTransaction();
         long id = DBHelper.INVALID_ID;
         try {
-            id =dbWriteConnection.insert(TABLE_SHOP, null, getContentValues(element));
+            id = dbWriteConnection.insert(TABLE_SHOP, null, getContentValues(element));
             element.setId(id);
 
             dbWriteConnection.setTransactionSuccessful();
@@ -143,7 +143,7 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
 
     @Override
     public void deleteAll() {
-        delete(null, null);
+       delete(null, null);
     }
 
     @Override
@@ -166,4 +166,5 @@ public class ShopDAO implements DAOReadable<Shop>, DAOWritable<Shop> {
 
         return shopList == null ? 0 : shopList.size();
     }
+
 }

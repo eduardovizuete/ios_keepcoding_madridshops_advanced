@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import java.lang.ref.WeakReference;
 
 public class SetAllShopsAreCachedInteractorImpl implements SetAllShopsAreCachedInteractor {
-
     private WeakReference<Context> context;
 
     public SetAllShopsAreCachedInteractorImpl(Context context) {

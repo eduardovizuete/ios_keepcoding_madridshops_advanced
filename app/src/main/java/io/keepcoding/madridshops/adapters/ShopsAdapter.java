@@ -13,7 +13,6 @@ import io.keepcoding.madridshops.views.OnElementClick;
 import io.keepcoding.madridshops.views.ShopRowViewHolder;
 
 public class ShopsAdapter extends RecyclerView.Adapter<ShopRowViewHolder> {
-
     private Shops shops;
     private LayoutInflater inflater;
     private OnElementClick<Shop> listener;
@@ -38,7 +37,7 @@ public class ShopsAdapter extends RecyclerView.Adapter<ShopRowViewHolder> {
 
         shopRow.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (listener != null) {
                     listener.clickedOn(shop, position);
                 }
