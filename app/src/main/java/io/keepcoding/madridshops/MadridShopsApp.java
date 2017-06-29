@@ -1,15 +1,9 @@
 package io.keepcoding.madridshops;
 
-import android.app.AlarmManager;
-import android.app.Application;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.NotificationCompat;
@@ -17,16 +11,7 @@ import android.util.Log;
 
 import com.squareup.picasso.Picasso;
 
-import io.keepcoding.madridshops.activities.ShopsListActivity;
-import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractor;
-import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorCompletion;
-import io.keepcoding.madridshops.domain.interactors.GetAllShopsInteractorImpl;
-import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
-import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerCompletion;
-import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerImpl;
-import io.keepcoding.madridshops.domain.managers.network.ManagerErrorCompletion;
-import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.activities.ShopListActivity;
 import io.keepcoding.madridshops.services.ShopService;
 
 public class MadridShopsApp extends MultiDexApplication {
@@ -46,7 +31,7 @@ public class MadridShopsApp extends MultiDexApplication {
         ShopService.startRunningService(this);
 
         Resources resources = getResources();
-        Intent intent = new Intent(this, ShopsListActivity.class);
+        Intent intent = new Intent(this, ShopListActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
 
         Notification notification = new NotificationCompat.Builder(this)

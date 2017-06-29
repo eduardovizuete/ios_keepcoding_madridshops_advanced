@@ -43,27 +43,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ShopsListActivity"
+            android:name=".activities.ShopListActivity"
             android:parentActivityName=".activities.MainActivity">
         </activity>
         <activity
             android:name=".activities.ShopDetailActivity"
-            android:parentActivityName=".activities.ShopsListActivity">
+            android:parentActivityName=".activities.ShopListActivity">
         </activity>
+
+        <!-- Google maps -->
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_api_key" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <!-- Services -->
+
+        <service android:name=".services.ShopService" />
+
     </application>
-
-    <!-- Google maps -->
-
-    <meta-data
-        android:name="com.google.android.maps.v2.API_KEY"
-        android:value="@string/google_maps_api_key" />
-
-    <meta-data
-        android:name="com.google.android.gms.version"
-        android:value="@integer/google_play_services_version" />
-
-    <!-- Services -->
-
-    <service android:name=".services.ShopService" />
 
 </manifest>

@@ -53,7 +53,7 @@ import io.keepcoding.madridshops.views.OnElementClick;
 import static com.google.android.gms.maps.GoogleMap.MAP_TYPE_NORMAL;
 import static io.keepcoding.madridshops.util.map.MapUtil.centerMapInPosition;
 
-public class ShopsListActivity extends AppCompatActivity {
+public class ShopListActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_shop_list__progress_bar) ProgressBar progressBar;
     ShopsFragment shopsFragment;
@@ -193,7 +193,7 @@ public class ShopsListActivity extends AppCompatActivity {
             @Override
             public void clickedOn(@NonNull Shop element, int position) {
                 // TODO: finish
-                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, element, position);
+                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopListActivity.this, element, position);
             }
         });
 
@@ -211,7 +211,7 @@ public class ShopsListActivity extends AppCompatActivity {
                     return;
                 }
                 Shop shop = (Shop) marker.getTag();
-                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopsListActivity.this, shop, 0);
+                Navigator.navigateFromShopListActivityToShopDetailActivity(ShopListActivity.this, shop, 0);
             }
         });
     }

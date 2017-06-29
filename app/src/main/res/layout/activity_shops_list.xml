@@ -8,7 +8,7 @@
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:paddingTop="@dimen/activity_vertical_margin"
-                tools:context="io.keepcoding.madridshops.activities.ShopsListActivity">
+                tools:context="io.keepcoding.madridshops.activities.ShopListActivity">
 
     <fragment
         android:id="@+id/activity_shop_list__map"
