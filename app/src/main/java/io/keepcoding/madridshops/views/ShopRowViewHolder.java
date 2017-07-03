@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 import java.lang.ref.WeakReference;
 
 import io.keepcoding.madridshops.R;
-import io.keepcoding.madridshops.domain.model.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
 
 public class ShopRowViewHolder extends RecyclerView.ViewHolder {
 

@@ -5,8 +5,8 @@ import android.util.Log;
 import java.util.List;
 
 import io.keepcoding.madridshops.domain.managers.network.entities.ShopEntity;
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class ShopEntityIntoShopsMapper {
 

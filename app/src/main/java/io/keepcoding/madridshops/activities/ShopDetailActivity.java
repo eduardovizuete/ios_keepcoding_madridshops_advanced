@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.keepcoding.madridshops.R;
-import io.keepcoding.madridshops.domain.model.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
 import io.keepcoding.madridshops.util.Constants;
 import io.keepcoding.madridshops.util.StaticMapImage;
 

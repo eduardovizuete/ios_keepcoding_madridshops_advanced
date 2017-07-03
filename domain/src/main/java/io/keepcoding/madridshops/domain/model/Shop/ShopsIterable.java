@@ -1,4 +1,4 @@
-package io.keepcoding.madridshops.domain.model;
+package io.keepcoding.madridshops.domain.model.Shop;
 
 import java.util.List;
 

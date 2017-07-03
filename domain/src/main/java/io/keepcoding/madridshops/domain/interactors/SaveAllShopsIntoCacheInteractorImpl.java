@@ -1,7 +1,7 @@
 package io.keepcoding.madridshops.domain.interactors;
 
 import io.keepcoding.madridshops.domain.managers.cache.SaveAllShopsIntoCacheManager;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class SaveAllShopsIntoCacheInteractorImpl implements SaveAllShopsIntoCacheInteractor {
 

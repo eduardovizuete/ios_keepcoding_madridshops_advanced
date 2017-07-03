@@ -1,4 +1,4 @@
-package io.keepcoding.madridshops.domain.model;
+package io.keepcoding.madridshops.domain.model.Shop;
 
 public interface ShopsUpdatable {
     void add(Shop shop);

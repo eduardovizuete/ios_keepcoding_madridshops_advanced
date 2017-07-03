@@ -41,8 +41,8 @@ import io.keepcoding.madridshops.domain.managers.cache.SaveAllShopsIntoCacheMana
 import io.keepcoding.madridshops.domain.managers.cache.SaveAllShopsIntoCacheManagerDAOImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllShopsManagerImpl;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 import io.keepcoding.madridshops.fragments.ShopsFragment;
 import io.keepcoding.madridshops.navigator.Navigator;
 import io.keepcoding.madridshops.util.map.MapPinnable;

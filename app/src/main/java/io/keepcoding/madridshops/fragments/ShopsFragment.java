@@ -13,8 +13,8 @@ import android.view.ViewGroup;
 
 import io.keepcoding.madridshops.R;
 import io.keepcoding.madridshops.adapters.ShopsAdapter;
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 import io.keepcoding.madridshops.views.OnElementClick;
 
 

@@ -5,8 +5,8 @@ import android.content.Context;
 import java.lang.ref.WeakReference;
 
 import io.keepcoding.madridshops.domain.managers.db.ShopDAO;
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class SaveAllShopsIntoCacheManagerDAOImpl implements SaveAllShopsIntoCacheManager {
 

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import java.util.List;
 
 import io.keepcoding.madridshops.domain.managers.db.ShopDAO;
-import io.keepcoding.madridshops.domain.model.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
 
 import static org.junit.Assert.*;
 

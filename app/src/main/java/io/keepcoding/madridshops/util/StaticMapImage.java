@@ -2,7 +2,7 @@ package io.keepcoding.madridshops.util;
 
 import android.support.annotation.NonNull;
 
-import io.keepcoding.madridshops.domain.model.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
 
 public class StaticMapImage {
     public static String getMapImageUrl(@NonNull final Shop shop) {

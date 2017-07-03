@@ -3,8 +3,8 @@ package io.keepcoding.madridshops.domain.interactors;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class GetAllShopsInteractorFakeImpl implements GetAllShopsInteractor {
 

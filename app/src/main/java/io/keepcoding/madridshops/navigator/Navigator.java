@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import io.keepcoding.madridshops.activities.MainActivity;
 import io.keepcoding.madridshops.activities.ShopDetailActivity;
 import io.keepcoding.madridshops.activities.ShopListActivity;
-import io.keepcoding.madridshops.domain.model.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
 
 import static io.keepcoding.madridshops.util.Constants.INTENT_SHOP_DETAIL;
 

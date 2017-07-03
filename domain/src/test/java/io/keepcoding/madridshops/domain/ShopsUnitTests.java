@@ -2,8 +2,8 @@ package io.keepcoding.madridshops.domain;
 
 import org.junit.Test;
 
-import io.keepcoding.madridshops.domain.model.Shop;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shop;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 import static org.junit.Assert.*;
 

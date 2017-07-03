@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllShopsFromCacheManagerCompletion;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class GetAllShopsFromCacheInteractorImpl implements GetAllShopsFromCacheInteractor {
 

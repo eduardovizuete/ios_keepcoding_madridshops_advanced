@@ -11,7 +11,7 @@ import io.keepcoding.madridshops.domain.managers.network.ManagerErrorCompletion;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManager;
 import io.keepcoding.madridshops.domain.managers.network.entities.ShopEntity;
 import io.keepcoding.madridshops.domain.managers.network.mappers.ShopEntityIntoShopsMapper;
-import io.keepcoding.madridshops.domain.model.Shops;
+import io.keepcoding.madridshops.domain.model.Shop.Shops;
 
 public class GetAllShopsInteractorImpl implements GetAllShopsInteractor {
     private NetworkManager networkManager;
