@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         shopsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(MainActivity.class.getCanonicalName(),"Hello");
+                Log.d(MainActivity.class.getCanonicalName(),"Clic shopsButton");
 
                 Navigator.navigateFromMainActivityToShopListActivity(MainActivity.this);
             }
@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
         activitiesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(MainActivity.class.getCanonicalName(),"Hello activities");
+                Log.d(MainActivity.class.getCanonicalName(),"Clic activitiesButton");
+
+                Navigator.navigateFromMainActivityToActivityListActivity(MainActivity.this);
             }
         });
 

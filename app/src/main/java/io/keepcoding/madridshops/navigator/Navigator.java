@@ -3,6 +3,7 @@ package io.keepcoding.madridshops.navigator;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import io.keepcoding.madridshops.activities.ActivityListActivity;
 import io.keepcoding.madridshops.activities.MainActivity;
 import io.keepcoding.madridshops.activities.ShopDetailActivity;
 import io.keepcoding.madridshops.activities.ShopListActivity;
@@ -29,5 +30,13 @@ public class Navigator {
         return i;
     }
 
+    public static Intent navigateFromMainActivityToActivityListActivity(@NonNull final MainActivity mainActivity) {
+        assert(mainActivity != null);
+
+        final Intent i = new Intent(mainActivity, ActivityListActivity.class);
+        mainActivity.startActivity(i);
+
+        return i;
+    }
 
 }
