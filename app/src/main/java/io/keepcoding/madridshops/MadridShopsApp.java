@@ -30,7 +30,7 @@ public class MadridShopsApp extends MultiDexApplication {
         // Picasso.with(getApplicationContext()).setLoggingEnabled(true);
         Picasso.with(getApplicationContext()).setIndicatorsEnabled(true);
 
-        ShopService.startRunningService(this);
+        //ShopService.startRunningService(this);
 
         Resources resources = getResources();
         Intent intent = new Intent(this, ShopListActivity.class);

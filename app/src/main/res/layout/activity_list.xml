@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_activity_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="io.keepcoding.madridshops.activities.ActivityListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <fragment
+        android:id="@+id/activity_activity_list__fragment_activities"
+        android:name="io.keepcoding.madridshops.fragments.ActivitiesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:layout="@layout/fragment_activities">
+
+    </fragment>
+
+</RelativeLayout>

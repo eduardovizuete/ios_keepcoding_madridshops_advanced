@@ -13,7 +13,8 @@ public class GetAllActivitiesInteractorFakeImpl implements GetAllActivitiesInter
         Activities activities = new Activities();
 
         for (int i = 0; i < 10; i++) {
-            Activity activity = Activity.of(i, "My Activity " + i);
+            Activity activity = Activity.of(i, "My Activity " + i).
+                    setLogoUrl("http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-11/128/shop-icon.png");
             activities.add(activity);
         }
 
