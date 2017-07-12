@@ -12,8 +12,6 @@ import android.util.Log;
 import com.squareup.picasso.Picasso;
 
 import io.keepcoding.madridshops.activities.ShopListActivity;
-import io.keepcoding.madridshops.services.ShopService;
-
 
 public class MadridShopsApp extends MultiDexApplication {
 

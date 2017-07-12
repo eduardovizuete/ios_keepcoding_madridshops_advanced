@@ -16,6 +16,8 @@ import io.keepcoding.madridshops.domain.managers.network.NetworkManagerActivitie
 import io.keepcoding.madridshops.domain.model.Activity.Activities;
 import io.keepcoding.madridshops.domain.model.Activity.Activity;
 import io.keepcoding.madridshops.fragments.ActivitiesFragment;
+import io.keepcoding.madridshops.navigator.Navigator;
+import io.keepcoding.madridshops.views.OnElementClick;
 
 public class ActivityListActivity extends AppCompatActivity {
 
@@ -38,6 +40,15 @@ public class ActivityListActivity extends AppCompatActivity {
                     public void completion(@NonNull Activities activities) {
                         Log.i(this.getClass().getCanonicalName(), "Ejecutando getAllActivitiesInteractor");
                         activitiesFragment.setActivities(activities);
+                        activitiesFragment.setOnElementClickListener(new OnElementClick<Activity>() {
+                            @Override
+                            public void clickedOn(@NonNull Activity element, int position) {
+                                Navigator.navigateFromActivityListActivityToActivityDetailActivity(ActivityListActivity.this, element, position);
+                            }
+                        });
+
+
+
                     }
                 },
                 new InteractorErrorCompletion() {

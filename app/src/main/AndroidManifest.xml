@@ -67,10 +67,13 @@
 
         <!-- Services -->
 
-        <service android:name=".services.ShopService"/>
+        <!--service android:name=".services.ShopService"/-->
 
-        <activity android:name=".activities.ActivityListActivity">
-        </activity>
+        <activity android:name=".activities.ActivityListActivity"
+                  android:parentActivityName=".activities.MainActivity"/>
+
+        <activity android:name=".activities.ActivityDetailActivity"
+                  android:parentActivityName=".activities.ActivityListActivity"/>
     </application>
 
 </manifest>
