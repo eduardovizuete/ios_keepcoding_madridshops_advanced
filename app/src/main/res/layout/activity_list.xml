@@ -20,4 +20,11 @@
 
     </fragment>
 
+    <ProgressBar
+        android:id="@+id/ctivity_activity_list__progress_bar"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_width="100dp"
+        android:layout_height="100dp"/>
+
 </RelativeLayout>
