@@ -14,7 +14,11 @@ import io.keepcoding.madridshops.domain.interactors.GetAllActivitiesInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetAllActivitiesInteractorCompletion;
 import io.keepcoding.madridshops.domain.interactors.GetAllActivitiesInteractorFakeImpl;
 import io.keepcoding.madridshops.domain.interactors.GetAllActivitiesInteractorImpl;
+import io.keepcoding.madridshops.domain.interactors.GetIfAllActivitiesAreCachedInteractor;
+import io.keepcoding.madridshops.domain.interactors.GetIfAllActivitiesAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
+import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInteractor;
+import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllActivitiesManagerImpl;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManagerActivities;
 import io.keepcoding.madridshops.domain.model.Activity.Activities;
@@ -36,8 +40,21 @@ public class ActivityListActivity extends AppCompatActivity {
 
         activitiesFragment = (ActivitiesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_activity_list__fragment_activities);
 
-        // obtain activities list
-        obtainActivitiesList();
+        GetIfAllActivitiesAreCachedInteractor getIfAllActivitiesChachedInteractor = new GetIfAllActivitiesAreCachedInteractorImpl(getBaseContext());
+        getIfAllActivitiesChachedInteractor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // all cached already, no need to download things, just read from DB
+                SetAllActivitiesAreCachedInteractor setAllActivitiesCachedInteractor = new SetAllActivitiesAreCachedInteractorImpl(getBaseContext());
+                setAllActivitiesCachedInteractor.execute(false);
+            }
+        }, new Runnable() {
+            @Override
+            public void run() {
+                // nothing cached yet
+                obtainActivitiesList();
+            }
+        });
     }
 
     private void obtainActivitiesList() {
@@ -52,6 +69,11 @@ public class ActivityListActivity extends AppCompatActivity {
                     public void completion(@NonNull Activities activities) {
                         Log.i(this.getClass().getCanonicalName(), "Ejecutando getAllActivitiesInteractor");
                         progressBar.setVisibility(View.INVISIBLE);
+
+                        // set flag activities cached
+                        SetAllActivitiesAreCachedInteractor setAllActivitiesCachedInteractor = new SetAllActivitiesAreCachedInteractorImpl(getBaseContext());
+                        setAllActivitiesCachedInteractor.execute(true);
+
                         activitiesFragment.setActivities(activities);
                         activitiesFragment.setOnElementClickListener(new OnElementClick<Activity>() {
                             @Override
