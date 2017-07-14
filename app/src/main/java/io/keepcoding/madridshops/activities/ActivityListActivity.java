@@ -105,6 +105,7 @@ public class ActivityListActivity extends AppCompatActivity {
                     @Override
                     public void onError(String errorDescription) {
                         Log.i(this.getClass().getCanonicalName(), "Error Ejecutando getAllActivitiesInteractor");
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 }
         );
