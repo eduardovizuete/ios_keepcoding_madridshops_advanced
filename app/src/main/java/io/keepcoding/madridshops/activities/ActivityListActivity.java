@@ -18,10 +18,14 @@ import io.keepcoding.madridshops.domain.interactors.GetAllActivitiesInteractorIm
 import io.keepcoding.madridshops.domain.interactors.GetIfAllActivitiesAreCachedInteractor;
 import io.keepcoding.madridshops.domain.interactors.GetIfAllActivitiesAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.InteractorErrorCompletion;
+import io.keepcoding.madridshops.domain.interactors.SaveAllActivitiesIntoCacheInteractor;
+import io.keepcoding.madridshops.domain.interactors.SaveAllActivitiesIntoCacheInteractorImpl;
 import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInteractor;
 import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllActivitiesFromCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllActivitiesFromCacheManagerDAOImpl;
+import io.keepcoding.madridshops.domain.managers.cache.SaveAllActivitiesIntoCacheManager;
+import io.keepcoding.madridshops.domain.managers.cache.SaveAllActivitiesIntoCacheManagerDAOImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllActivitiesManagerImpl;
 import io.keepcoding.madridshops.domain.managers.network.NetworkManagerActivities;
 import io.keepcoding.madridshops.domain.model.Activity.Activities;
@@ -43,8 +47,8 @@ public class ActivityListActivity extends AppCompatActivity {
 
         activitiesFragment = (ActivitiesFragment) getSupportFragmentManager().findFragmentById(R.id.activity_activity_list__fragment_activities);
 
-        GetIfAllActivitiesAreCachedInteractor getIfAllActivitiesCachedInteractor = new GetIfAllActivitiesAreCachedInteractorImpl(getBaseContext());
-        getIfAllActivitiesCachedInteractor.execute(new Runnable() {
+        GetIfAllActivitiesAreCachedInteractor getIfAllActivitiesAreCachedInteractor = new GetIfAllActivitiesAreCachedInteractorImpl(getBaseContext());
+        getIfAllActivitiesAreCachedInteractor.execute(new Runnable() {
             @Override
             public void run() {
                 // all cached already, no need to download things, just read from DB
@@ -73,21 +77,28 @@ public class ActivityListActivity extends AppCompatActivity {
     private void obtainActivitiesList() {
         progressBar.setVisibility(View.VISIBLE);
 
-        NetworkManagerActivities manager = new GetAllActivitiesManagerImpl(getApplicationContext());
+        NetworkManagerActivities manager = new GetAllActivitiesManagerImpl(this);
 
         GetAllActivitiesInteractor getAllActivitiesInteractor = new GetAllActivitiesInteractorImpl(manager);
         getAllActivitiesInteractor.execute(
                 new GetAllActivitiesInteractorCompletion() {
                     @Override
-                    public void completion(@NonNull Activities activities) {
+                    public void completion(@NonNull final Activities activities) {
                         Log.i(this.getClass().getCanonicalName(), "Ejecutando getAllActivitiesInteractor");
-                        progressBar.setVisibility(View.INVISIBLE);
+                        // save into cache
+                        SaveAllActivitiesIntoCacheManager saveManager = new SaveAllActivitiesIntoCacheManagerDAOImpl(getBaseContext());
+                        SaveAllActivitiesIntoCacheInteractor saveInteractor = new SaveAllActivitiesIntoCacheInteractorImpl(saveManager);
+                        saveInteractor.execute(activities, new Runnable() {
+                            @Override
+                            public void run() {
+                                // set flag activities cached
+                                SetAllActivitiesAreCachedInteractor setAllActivitiesAreCachedInteractor = new SetAllActivitiesAreCachedInteractorImpl(getBaseContext());
+                                setAllActivitiesAreCachedInteractor.execute(true);
+                            }
+                          });
 
                         configActivitiesFragment(activities);
-
-                        // set flag activities cached
-                        SetAllActivitiesAreCachedInteractor setAllActivitiesCachedInteractor = new SetAllActivitiesAreCachedInteractorImpl(getBaseContext());
-                        setAllActivitiesCachedInteractor.execute(true);
+                        progressBar.setVisibility(View.INVISIBLE);
                     }
                 },
                 new InteractorErrorCompletion() {
@@ -99,7 +110,7 @@ public class ActivityListActivity extends AppCompatActivity {
         );
     }
 
-    private void configActivitiesFragment(Activities activities) {
+    private void configActivitiesFragment(final Activities activities) {
         activitiesFragment.setActivities(activities);
         activitiesFragment.setOnElementClickListener(new OnElementClick<Activity>() {
             @Override
