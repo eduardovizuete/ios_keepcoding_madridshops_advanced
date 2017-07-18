@@ -26,6 +26,7 @@ import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteract
 import io.keepcoding.madridshops.domain.interactors.SetAllShopsAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.managers.cache.ClearCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.ClearCacheManagerDAOImpl;
+import io.keepcoding.madridshops.domain.managers.cache.ClearCacheManagerDiskImpl;
 import io.keepcoding.madridshops.navigator.Navigator;
 import io.keepcoding.madridshops.util.MainThread;
 
@@ -131,6 +132,14 @@ public class MainActivity extends AppCompatActivity {
         clearCacheInteractor.execute(new Runnable() {
             @Override
             public void run() {
+                ClearCacheManager clearCacheManager = new ClearCacheManagerDiskImpl(getBaseContext());
+                ClearCacheInteractor clearCacheDiskInteractor = new ClearCacheInteractorImpl(clearCacheManager);
+                clearCacheDiskInteractor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i(this.getClass().getCanonicalName(), "Limpiando imagenes ClearCacheManagerDiskImpl");
+                    }
+                });
                 // set flag shops cached
                 SetAllShopsAreCachedInteractor setAllShopsAreCachedInteractor = new SetAllShopsAreCachedInteractorImpl(getBaseContext());
                 setAllShopsAreCachedInteractor.execute(false);

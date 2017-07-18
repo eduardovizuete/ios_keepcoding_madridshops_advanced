@@ -38,6 +38,7 @@ import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInt
 import io.keepcoding.madridshops.domain.interactors.SetAllActivitiesAreCachedInteractorImpl;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllActivitiesFromCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.GetAllActivitiesFromCacheManagerDAOImpl;
+import io.keepcoding.madridshops.domain.managers.cache.SaveAllActivitiesImagesIntoCacheManagerDiskImpl;
 import io.keepcoding.madridshops.domain.managers.cache.SaveAllActivitiesIntoCacheManager;
 import io.keepcoding.madridshops.domain.managers.cache.SaveAllActivitiesIntoCacheManagerDAOImpl;
 import io.keepcoding.madridshops.domain.managers.network.GetAllActivitiesManagerImpl;
@@ -170,6 +171,15 @@ public class ActivityListActivity extends AppCompatActivity {
                         saveInteractor.execute(activities, new Runnable() {
                             @Override
                             public void run() {
+                                // save images to disk cache
+                                SaveAllActivitiesIntoCacheManager saveImagesManager = new SaveAllActivitiesImagesIntoCacheManagerDiskImpl(getBaseContext());
+                                SaveAllActivitiesIntoCacheInteractor saveImagesInteractor = new SaveAllActivitiesIntoCacheInteractorImpl(saveImagesManager);
+                                saveImagesInteractor.execute(activities, new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Log.i(this.getClass().getCanonicalName(), "Guardando imagenes saveImagesInteractor");
+                                    }
+                                });
                                 // set flag activities cached
                                 SetAllActivitiesAreCachedInteractor setAllActivitiesAreCachedInteractor = new SetAllActivitiesAreCachedInteractorImpl(getBaseContext());
                                 setAllActivitiesAreCachedInteractor.execute(true);
